@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>D3.js in Action 2nd Ed.</title>
+  <meta name="description" content="Default Content">
+  <meta name="author" content="Tyler Wayne">
+  <link rel="stylesheet" type="text/css"
+    href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+  
+  <div id="contol"></div>
+  <div id="viz">
+    <svg style="width:600px;height:600px;"></svg>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/d3.v5.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/topojson.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  
+</body>
+
+</html>
