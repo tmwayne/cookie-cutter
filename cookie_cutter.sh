@@ -4,7 +4,7 @@ usage='Usage: cookie_cutter [-d cookie_cutter_dir] [-D project_dir] project_type
 
 ## CONFIGURATIONS
 
-default_cookie_cutter_dir="$HOME/scripts/skeletons/cookie_cutters"
+default_cookie_cutter_dir="$HOME/scripts/cookie_cutters"
 
 ## ARGUMENTS
 
