@@ -14,7 +14,7 @@ while getopts ":e:" opt; do
 done
 shift $((OPTIND-1))
 
-ENV=${ENV:-py-env}
+ENV=${ENV:-.env-py}
 
 echo "Activating Python virtual environment $ENV..."
 source $ENV/bin/activate
