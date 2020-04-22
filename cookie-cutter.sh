@@ -1,24 +1,25 @@
 #!/bin/bash
 
-usage='Usage: cookie_cutter [-d cookie_cutter_dir] [-D project_dir] project_type project_name'
+THIS_PROG=$( basename $0 )
+USAGE="Usage: $THIS_PROG [-d cookie_cutter_dir] [-D project_dir] project_type project_name"
 
 ## CONFIGURATIONS
+########################################
 
-default_cookie_cutter_dir="$HOME/scripts/cookie_cutters"
-
-## ARGUMENTS
+COOKIE_CUTTER_DIR="$HOME/scripts/cookie_cutters"
+PROJ_DIR=$( readlink -f . )
 
 while getopts ":hd:D:" opt; do
   case $opt in
     h)
-      echo $usage
+      echo $USAGE
       exit 0
       ;;
     d)
-      cookie_cutter_dir=$OPTARG
+      COOKIE_CUTTER_DIR=$OPTARG
       ;;
     D)
-      proj_dir=$OPTARG
+      PROJ_DIR=$OPTARG
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -27,41 +28,41 @@ while getopts ":hd:D:" opt; do
 done
 shift $((OPTIND-1))
 
-cookie_cutter_dir=${cookie_cutter_dir:-$default_cookie_cutter_dir}
-proj_type=$1
-cookie_cutter="$cookie_cutter_dir/$proj_type"
+PROJ_TYPE=$1
+COOKIE_CUTTER="$COOKIE_CUTTER_DIR/$PROJ_TYPE"
 
-proj_dir=${proj_dir:-$(pwd)}
-proj_name=$2
+PROJ_NAME=$2
 
-proj_dest="$proj_dir/$proj_name"
+PROJ_DEST="$PROJ_DIR/$PROJ_NAME"
 
 
 ## ASSERTIONS
+########################################
 
-if [ "$#" -lt 2 ] ; then
-  echo $usage
+if [ $# -lt 2 ] ; then
+  echo $USAGE
   exit 1
 fi
 
-if [ ! -d $cookie_cutter ] ; then
-  echo 'Error: template for project type does not exist'
+if [ ! -d $COOKIE_CUTTER ] ; then
+  echo "${0}: error: template for project type does not exist"
   exit 1
 fi
 
-if [ -d "$proj_dest" ] ; then
-  echo 'Error: project directory already exists'
-  echo "$proj_dest"
+if [ -d "$PROJ_DEST" ] ; then
+  echo "${0}: error: project directory already exists"
+  echo "$PROJ_DEST"
   exit 1
 fi
 
 
 ## MAIN
+########################################
 
-printf "Creating $proj_type project in $proj_dest ... "
-if cp -r $cookie_cutter $proj_dest; then
-  echo 'Success!'
+printf "Creating $PROJ_TYPE project in $PROJ_DEST ... "
+if cp -r $COOKIE_CUTTER $PROJ_DEST; then
+  echo "Success!"
 else
-  echo 'Error'
-  echo 'Unable to create cookie cutter project.'
+  echo ""
+  echo "${0}: error: unable to create $PROJ_TYPE in $PROJ_DIR ..."
 fi
