@@ -18,6 +18,14 @@ stamp-h1
 src/Makefile
 src/Makefile.in
 src/.deps
+src/*.o
+test-driver
+tests/Makefile
+tests/Makefile.in
+tests/*.o
+tests/*.log
+tests/*.trs
+tests/.deps
 "
 
 for f in "$files"; do rm -rf $f; done
