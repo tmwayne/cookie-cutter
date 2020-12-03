@@ -6,7 +6,7 @@ USAGE="Usage: $THIS_PROG [-d cookie_cutter_dir] [-D project_dir] project_type pr
 ## CONFIGURATIONS
 ########################################
 
-COOKIE_CUTTER_DIR="$HOME/scripts/cookie_cutters"
+COOKIE_CUTTER_DIR="$HOME/code/scripts/cookie_cutters"
 PROJ_DIR=$( readlink -f . )
 
 while getopts ":hd:D:" opt; do
