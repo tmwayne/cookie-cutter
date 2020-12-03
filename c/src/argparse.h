@@ -2,18 +2,16 @@
 
 #include <argp.h>
 
-const char* argp_program_version = "cheatsheets 1.0\n"
+const char* argp_program_version = "C Cookie-Cutter 0.0\n"
   "Copyright © 2020 Tyler Wayne";
 
 const char* argp_program_bug_address = "<tylerwayne3@gmail.com>";
 
 // This structure is used by main to communicate with parse_opt.
 struct arguments {
-  char *args[1];      // cheatsheet
-  char *config;       // config file
-  char* cs_dir;       // directory for cheatsheets
-  int edit;           // the -e flag
-  // char* string;       // some argument
+  char *args[1];      // Positional argument
+  char *with;         // Optional argument with value
+  int  without;       // Optional argument without value
 };
 
 /*
@@ -21,11 +19,8 @@ struct arguments {
  * Order of fields: { name, key, arg, flags, doc }
  */
 static struct argp_option options[] = {
-  {"config", 'c', "file", 0, "Config file"},
-  {"cs-dir", 'd', "dir", 0, "Cheatsheet directory."
-    " Defaults to $CHEATSHEETS_DIR"},
-  {"edit", 'e', 0, 0, "Edit the cheatsheet"},
-  // {"alpha", 'a', "STRING", 0, "Placeholder for a"},
+  {"with-value", 'a', "file", 0, "Optional argument with value"},
+  {"without-value", 'b', 0, 0, "Optional argument without value"},
   {0}
 };
 
@@ -37,14 +32,11 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state) {
   struct arguments* arguments = state->input;
 
   switch (key) {
-    case 'c':
-      arguments->config = arg;
+    case 'a':
+      arguments->with = arg;
       break;
-    case 'd':
-      arguments->cs_dir = arg;
-      break;
-    case 'e':
-      arguments->edit = 1;
+    case 'b':
+      arguments->without = 1;
       break;
     case ARGP_KEY_ARG:
       if (state->arg_num >= 1)
@@ -65,14 +57,13 @@ static error_t parse_opt(int key, char* arg, struct argp_state* state) {
  * ARGS_DOC : Field 3 in Argp
  * A description of the non-option command-line arguments that we accepted
  */
-static char args_doc[] = "cheatsheet";
+static char args_doc[] = "positional-arg";
 
 /*
  * DOC : Field 4 in Argp
  * Program documentation
  */
-static char doc[] = "cheatsheet -- print useful commands and options "
-  "for given topic";
+static char doc[] = "someprog -- template program for cookie-cutter";
 
 /*
  * Argp structure
